@@ -5,6 +5,7 @@ def bisection_method(f, segments, accuracy):
         a = segment[0]
         b = segment[1]
         steps = 0
+        starting_approximation = (a + b) / 2
 
         while b - a > 2 * accuracy:
             c = (a + b) / 2
@@ -15,8 +16,9 @@ def bisection_method(f, segments, accuracy):
             steps += 1
 
         x = (a + b) / 2
-        delta = abs(b - a)
-        roots.append([x, delta, steps])
+        last_step_size = abs(b - a)
+
+        roots.append([x, last_step_size, steps, starting_approximation])
 
     return roots
 
@@ -27,6 +29,7 @@ def newtons_method(f, derivative_of_f, segments, accuracy):
     for segment in segments:
         steps = 0
         current_point = segment[0]
+        starting_approximation = segment[0]
         previous_point = None
 
         while previous_point is None or abs(current_point - previous_point) >= accuracy:
@@ -34,8 +37,8 @@ def newtons_method(f, derivative_of_f, segments, accuracy):
             current_point = previous_point - f(previous_point) / derivative_of_f(previous_point)
             steps += 1
 
-        delta = abs(current_point - previous_point)
-        roots.append([current_point, delta, steps])
+        last_step_size = abs(current_point - previous_point)
+        roots.append([current_point, last_step_size, steps, starting_approximation])
 
     return roots
 
@@ -48,14 +51,15 @@ def modified_newtons_method(f, derivative_of_f, segments, accuracy):
         current_point = segment[0]
         previous_point = None
         starting_point_derivative = derivative_of_f(current_point)
+        starting_approximation = segment[0]
 
         while previous_point is None or abs(current_point - previous_point) >= accuracy:
             previous_point = current_point
             current_point = previous_point - f(previous_point) / starting_point_derivative
             steps += 1
 
-        delta = abs(current_point - previous_point)
-        roots.append([current_point, delta, steps])
+        last_step_size = abs(current_point - previous_point)
+        roots.append([current_point, last_step_size, steps, starting_approximation])
 
     return roots
 
@@ -67,6 +71,7 @@ def secant_method(f, segments, accuracy):
         steps = 0
         current_point = segment[0]
         previous_point = None
+        starting_approximation = current_point
 
         while previous_point is None or abs(current_point - previous_point) > accuracy:
             if previous_point is None:
@@ -84,8 +89,8 @@ def secant_method(f, segments, accuracy):
 
             steps += 1
 
-        delta = abs(current_point - previous_point)
-        roots.append([current_point, delta, steps])
+        last_step_size = abs(current_point - previous_point)
+        roots.append([current_point, last_step_size, steps, starting_approximation])
 
     return roots
 
@@ -100,6 +105,7 @@ There are 4 different methods to reduce roots
         """)
     method = int(input("Enter the number of the method (1, 2, 3, 4): "))
     roots = []
+    approx = 0
     method_name = ""
     if method == 1:
         roots = bisection_method(f, segments, accuracy)
@@ -120,8 +126,8 @@ There are 4 different methods to reduce roots
     for i in range(len(roots)):
         root = roots[i]
         print(f"Root number: {i + 1}")
-        print(f"Starting approximation: {segments[i]}")
+        print(f"Starting approximation: {root[3]}")
         print(f"Number of steps: {root[2]}")
         print(f"Root: {root[0]}")
-        print(f"Accuracy: {root[1]}")
+        print(f"|Xk - Xk-1|: {root[1]}")
         print(f"Absolute derivation from 0: {abs(f(root[0]))}\n")
