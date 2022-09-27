@@ -1,6 +1,6 @@
-from task_1.separate_roots import separate_roots
-from task_1.reduce_roots import reduce_roots
-from task_1.utils import *
+from Roots.separate_roots import separate_roots
+from Roots.reduce_roots import reduce_roots
+from Roots.utils import *
 
 if __name__ == '__main__':
     print_title()
