@@ -10,10 +10,10 @@ n = 7
 m = 15
 
 
-def f(x): return 10 * cos(x) - 0.1 * (x ** 2)
+def f(x): return exp(-x) - x ** 2 / 2
 
 
-def x(j): return a + j * (b - a) / m
+def x(j, m, a, b): return a + j * (b - a) / m
 
 
 def print_title():

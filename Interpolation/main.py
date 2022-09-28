@@ -6,13 +6,15 @@ from interpolate import *
 if __name__ == '__main__':
     print_title()
 
+    a = int(input("Enter the left border of interval: "))
+    b = int(input("Enter the right border of interval: "))
     table_size = int(input("Enter the number of values in the table: "))
     print("\n")
-    points, table = print_table(table_size, f, x)
+    points, table = print_table(table_size, f, x, table_size - 1, a, b)
 
     while True:
         X = float(input("Enter the point of interpolation: "))
-        n = int(input("Enter the degree of the polynom(Lesser than the number of values): "))
+        n = int(input(f"Enter the degree of the polynom(Lesser than {table_size}): "))
         print("\n")
         while n >= table_size:
             n = int(input("Wrong degree. Try again: "))
