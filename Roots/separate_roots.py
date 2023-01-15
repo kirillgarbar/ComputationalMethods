@@ -1,5 +1,5 @@
 def separate_roots(f, a, b, n):
-    print("Root separations is started...")
+    #print("Root separations is started...")
     segments = []
 
     while True:
@@ -14,13 +14,13 @@ def separate_roots(f, a, b, n):
             if y_1 * y_2 <= 0:
                 segment = [x_1, x_2]
                 segments.append(segment)
-                print(segment)
+                #print(segment)
 
             y_1 = y_2
             x_1 = x_2
 
-        print(f"Number of segments with at least one odd root: {len(segments)}")
-        if input("Do you want to increase number of steps by 2 and compute the segments again? (Y/N): ") != "Y":
+        #print(f"Number of segments with at least one odd root: {len(segments)}")
+        if True: #input("Do you want to increase number of steps by 2 and compute the segments again? (Y/N): ") != "Y":
             break
         else:
             n *= 2
